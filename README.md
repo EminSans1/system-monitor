@@ -19,7 +19,7 @@ Lightweight real-time CLI system monitor built with Python and `psutil`.
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/system-monitor.git
+git clone https://github.com/EminSans1/system-monitor.git
 cd system-monitor
 pip install -r requirements.txt
 ```
