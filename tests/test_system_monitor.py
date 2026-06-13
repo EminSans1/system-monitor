@@ -81,20 +81,19 @@ def test_get_top_processes_skips_invalid():
 
 
 def test_get_top_processes_handles_access_denied():
-    def raise_access():
-        raise psutil.AccessDenied(1, "read")
-
-    proc = mock.Mock()
-    proc.info = property(raise_access)
-    proc.info = {
-        "pid": 99,
-        "name": "protected",
-        "cpu_percent": 10.0,
-        "memory_percent": 1.0,
+    good_proc = mock.Mock()
+    good_proc.info = {
+        "pid": 1,
+        "name": "init",
+        "cpu_percent": 0.1,
+        "memory_percent": 0.01,
     }
-    with mock.patch("psutil.process_iter", return_value=[proc]):
+    bad_proc = mock.Mock()
+    type(bad_proc).info = mock.PropertyMock(side_effect=psutil.AccessDenied(1, "read"))
+    with mock.patch("psutil.process_iter", return_value=[good_proc, bad_proc]):
         result = get_top_processes(5)
         assert len(result) == 1
+        assert result[0]["pid"] == 1
 
 
 def test_format_size():

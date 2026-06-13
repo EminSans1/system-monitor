@@ -8,7 +8,6 @@ from datetime import datetime
 import psutil
 
 ANSI_RESET = "\033[0m"
-ANSI_BOLD = "\033[1m"
 ANSI_CYAN = "\033[1;36m"
 ANSI_GREEN = "\033[1;32m"
 ANSI_YELLOW = "\033[1;33m"
